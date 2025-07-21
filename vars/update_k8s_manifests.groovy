@@ -25,12 +25,12 @@ def call(Map config = [:]) {
         
         // Update deployment manifests with new image tags - using proper Linux sed syntax
         sh """
-            # Update main application deployment - note the correct image name is herberthub11/easyshop-app
-            sed -i "s|image: herberthub11/easyshop-app:.*|image: herberthub11/easyshop-app:${imageTag}|g" ${manifestsPath}/08-easyshop-deployment.yaml
+            # Update main application deployment - note the correct image name is herberthub/easyshop-app
+            sed -i "s|image: herberthub/easyshop-app:.*|image: herberthub/easyshop-app:${imageTag}|g" ${manifestsPath}/08-easyshop-deployment.yaml
             
             # Update migration job if it exists
             if [ -f "${manifestsPath}/12-migration-job.yaml" ]; then
-                sed -i "s|image: herberthub11/easyshop-migration:.*|image: herberthub11/easyshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
+                sed -i "s|image: herberthub/easyshop-migration:.*|image: herberthub/easyshop-migration:${imageTag}|g" ${manifestsPath}/12-migration-job.yaml
             fi
             
             # Ensure ingress is using the correct domain
